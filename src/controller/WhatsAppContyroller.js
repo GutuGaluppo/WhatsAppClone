@@ -75,7 +75,7 @@ class WhatsAppContyroller {
 		}
 		// Transform into json to store in Firebase
 		HTMLFormElement.prototype.toJSON = function () {
-			
+
 			let json = {};
 
 			this.getForm().forEach((value, key) => {
@@ -83,7 +83,9 @@ class WhatsAppContyroller {
 			})
 			return json
 		}
-	}
+
+
+	} // end of elementsPrototype
 
 	initEvents() {
 		this.el.myPhoto.on('click', e => {
@@ -141,6 +143,18 @@ class WhatsAppContyroller {
 			let formData = new FormData(this.el.formPanelAddContact);
 
 		})
+
+		// Open message and hide home panel
+		this.el.contactsMessagesList.querySelectorAll('.contact-item').forEach(item => {
+			item.on('click', e => {
+				this.el.home.hide();
+				this.el.main.css({
+					display: 'flex'
+				})
+			})
+		})
+
+		
 	}
 
 	closeLeftPanel() {
