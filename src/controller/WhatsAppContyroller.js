@@ -154,7 +154,37 @@ class WhatsAppContyroller {
 			})
 		})
 
-		
+		// On click on the clip icon, open menu-attach
+		this.el.btnAttach.on('click', e => {
+
+			e.stopPropagation();// prevent propagation on ancestral elements
+
+			this.el.menuAttach.addClass('open');
+			document.addEventListener('click', this.closeMenuAttach.bind(this));
+
+		})
+
+		this.el.btnAttachPhoto.on('click', e => {
+			console.log('photo')
+		})
+		this.el.btnAttachCamera.on('click', e => {
+			console.log('camera')
+		})
+		this.el.btnAttachDocument.on('click', e => {
+			console.log('document')
+		})
+		this.el.btnAttachContact.on('click', e => {
+			console.log('contact')
+		})
+
+
+
+
+	} // end of initEvents
+
+	closeMenuAttach(e) {
+		document.removeEventListener('click', this.closeMenuAttach)
+		this.el.menuAttach.removeClass('open');
 	}
 
 	closeLeftPanel() {
