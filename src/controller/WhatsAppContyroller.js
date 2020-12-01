@@ -5,6 +5,7 @@ class WhatsAppContyroller {
 
 		this.elementsPrototype();
 		this.loadElements();
+		this.initEvents();
 
 	}
 
@@ -67,8 +68,43 @@ class WhatsAppContyroller {
 		Element.prototype.hasClass = function (name) {
 			return this.classList.contains(name);
 		}
+	}
 
+	initEvents() {
+		this.el.myPhoto.on('click', e => {
+			this.closeLeftPanel();
+			this.el.panelEditProfile.show();
 
+			setTimeout(() => {
+				this.el.panelEditProfile.addClass('open');
+			}, 100)//to deal with the scrol animation
+		})
+
+		this.el.btnNewContact.on('click', e => {
+			this.closeLeftPanel()
+			this.el.panelAddContact.show();
+
+			setTimeout(() => {
+				this.el.panelAddContact.addClass('open');
+			}, 100)
+		})
+
+		this.el.btnClosePanelEditProfile.on('click', e => {
+			this.el.panelEditProfile.removeClass('open');
+		})
+
+		this.el.btnClosePanelEditProfile.on('click', e => {
+			this.el.panelEditProfile.removeClass('open');
+		})
+
+		this.el.btnClosePanelAddContact.on('click', e => {
+			this.el.panelAddContact.removeClass('open');
+		})
+	}
+
+	closeLeftPanel() {
+		this.el.panelEditProfile.hide();
+		this.el.panelAddContact.hide();
 	}
 
 }
