@@ -246,6 +246,47 @@ class WhatsAppContyroller {
 
 
 
+		// Keyboard events
+
+		// Prevent to send the text if keys CONTROL + ENTER were pressed
+		this.el.inputText.on('keypress', e => {
+
+			if (e.key === 'Enter' && !e.ctrlKey) {
+				e.preventDefault();
+				this.el.btnSend.click();
+			}
+
+		})
+		// Change mic btn to send btn and hide placeholder
+		this.el.inputText.on('keyup', e => {
+
+			if (this.el.inputText.innerHTML.length) {
+				this.el.inputPlaceholder.hide();
+				this.el.btnSendMicrophone.hide();
+				this.el.btnSend.show();
+			} else {
+				this.el.btnSendMicrophone.show();
+				this.el.inputPlaceholder.show();
+				this.el.btnSend.hide();
+			}
+
+		})
+		
+		this.el.btnSend.on('click', e => {
+			console.log(this.el.inputText.innerHTML)
+		})
+		// Open emoji panel
+		this.el.btnEmojis.on('click', e => {
+			this.el.panelEmojis.toggleClass('open');
+		})
+		// Select emoji clicked
+		this.el.panelEmojis.querySelectorAll('.emojik').forEach(emoji => {
+			emoji.on('click', e => {
+				console.log(emoji.dataset.unicode)
+			})
+		})
+
+
 	} // end of initEvents
 
 
