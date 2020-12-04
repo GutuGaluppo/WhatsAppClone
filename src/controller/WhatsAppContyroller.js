@@ -271,7 +271,7 @@ class WhatsAppContyroller {
 			}
 
 		})
-		
+
 		this.el.btnSend.on('click', e => {
 			console.log(this.el.inputText.innerHTML)
 		})
@@ -287,7 +287,7 @@ class WhatsAppContyroller {
 				let img = this.el.imgEmojiDefault.cloneNode()
 				// cloneNode() clone the emoji because if we try to apply a second one it will replace the first one
 
-				img.style.cssText =emoji.style.cssText;
+				img.style.cssText = emoji.style.cssText;
 				img.dataset.unicode = emoji.dataset.unicode;
 				img.alt = emoji.dataset.alt;
 
@@ -295,7 +295,24 @@ class WhatsAppContyroller {
 					img.classList.add(name)
 				})
 
-				this.el.inputText.appendChild(img);
+				let cursor = window.getSelection();
+
+				if (!cursor.focusNode || !cursor.focusNode.id == 'input-text') { // checking if cursor is inside input text
+					this.el.inputText.focus(); // forcing focus
+					cursor = window.getSelection();
+				}
+
+				let range = document.createRange();
+
+				range = cursor.getRangeAt(0); // start position of selected range (text selection)
+				range.deleteContents(); // deleting selected range (text selection)
+
+				let fragment = document.createDocumentFragment(); // create a new fragment (a 'space' to be filled) in the document
+				fragment.appendChild(img) // add image
+
+				range.insertNode(fragment); // place the emoji in the fragment
+
+				range.setStartAfter(img); // set the cursor after the emoji
 
 				this.el.inputText.dispatchEvent(new Event('keyup'));
 				// dispatchEvent() 'forces' the 'new Event('keyup')' in order to hide the input placeholder
