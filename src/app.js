@@ -1,1 +1,1 @@
-window.app=new WhatsAppContyroller();
+window.app=new WhatsAppController();
