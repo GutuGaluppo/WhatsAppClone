@@ -283,7 +283,9 @@ class WhatsAppContyroller {
 		this.el.panelEmojis.querySelectorAll('.emojik').forEach(emoji => {
 			emoji.on('click', e => {
 				console.log(emoji.dataset.unicode)
-				let img = this.el.imgEmojiDefault.cloneNode();
+
+				let img = this.el.imgEmojiDefault.cloneNode()
+				// cloneNode() clone the emoji because if we try to apply a second one it will replace the first one
 
 				img.style.cssText =emoji.style.cssText;
 				img.dataset.unicode = emoji.dataset.unicode;
@@ -295,7 +297,8 @@ class WhatsAppContyroller {
 
 				this.el.inputText.appendChild(img);
 
-				this.el.inputText.dispatchEvent(new Event('keyup')); // forcing an keyup event to hide the input placeholder
+				this.el.inputText.dispatchEvent(new Event('keyup'));
+				// dispatchEvent() 'forces' the 'new Event('keyup')' in order to hide the input placeholder
 
 			})
 		})
